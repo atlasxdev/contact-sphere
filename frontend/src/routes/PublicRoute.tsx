@@ -1,7 +1,7 @@
 import { useAuth } from "@clerk/clerk-react";
 import { ReactNode } from "react";
 import { Navigate } from "react-router";
-import Loader from "../components/ui/loader";
+import Loader from "@/components/ui/loader";
 
 function PublicRoute({ children }: { children: ReactNode }) {
     const { isLoaded, isSignedIn } = useAuth();

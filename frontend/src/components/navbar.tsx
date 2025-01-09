@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 import { Link, NavLink } from "react-router";
-import { cn } from "../lib/utils";
+import { cn } from "@/lib/utils";
 
 export function Navbar() {
     const { isSignedIn, user, isLoaded } = useUser();

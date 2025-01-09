@@ -1,6 +1,6 @@
 import { Link } from "react-router";
-import { MaxWidthWrapper } from "../components/max-width-wrapper";
-import { buttonVariants } from "../components/ui/button";
+import { MaxWidthWrapper } from "@/components/max-width-wrapper";
+import { buttonVariants } from "@/components/ui/button";
 
 function NotFound() {
     return (

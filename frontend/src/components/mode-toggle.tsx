@@ -7,7 +7,7 @@ import {
 } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
 import { useTheme } from "./theme-provider";
-import { cn } from "../lib/utils";
+import { cn } from "@/lib/utils";
 
 export function ModeToggle({
     variant = "outline",

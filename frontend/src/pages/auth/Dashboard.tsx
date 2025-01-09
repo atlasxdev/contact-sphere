@@ -1,7 +1,7 @@
-import { MaxWidthWrapper } from "../../components/max-width-wrapper";
+import { MaxWidthWrapper } from "@/components/max-width-wrapper";
 import noContacts from "../../../public/no_contacts.json";
 import { useLottie } from "lottie-react";
-import { Button } from "../../components/ui/button";
+import { Button } from "@/components/ui/button";
 
 function Dashboard() {
     const { View, animationContainerRef } = useLottie({

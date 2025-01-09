@@ -1,5 +1,5 @@
-import { MaxWidthWrapper } from "../../components/max-width-wrapper";
-import { ModeToggle } from "../../components/mode-toggle";
+import { MaxWidthWrapper } from "@/components/max-width-wrapper";
+import { ModeToggle } from "@/components/mode-toggle";
 
 function Footer() {
     return (

@@ -1,13 +1,8 @@
 import { useUser } from "@clerk/clerk-react";
-import { MaxWidthWrapper } from "../../components/max-width-wrapper";
-import { Button } from "../../components/ui/button";
-import {
-    Card,
-    CardContent,
-    CardHeader,
-    CardTitle,
-} from "../../components/ui/card";
-import { Input } from "../../components/ui/input";
+import { MaxWidthWrapper } from "@/components/max-width-wrapper";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 
 function AccountSettings() {
     const { user } = useUser();

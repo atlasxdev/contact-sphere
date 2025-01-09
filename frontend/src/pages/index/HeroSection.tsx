@@ -1,6 +1,6 @@
-import { MaxWidthWrapper } from "../../components/max-width-wrapper";
-import { BackgroundLines } from "../../components/ui/background-lines";
-import { Button } from "../../components/ui/button";
+import { MaxWidthWrapper } from "@/components/max-width-wrapper";
+import { BackgroundLines } from "@/components/ui/background-lines";
+import { Button } from "@/components/ui/button";
 import { useLottie } from "lottie-react";
 import lottieMation from "../../../public/lottiemation.json";
 import {
@@ -10,7 +10,7 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from "../../components/ui/card";
+} from "@/components/ui/card";
 import { CircleCheckIcon, CircleXIcon } from "lucide-react";
 import { SignUpButton } from "@clerk/clerk-react";
 

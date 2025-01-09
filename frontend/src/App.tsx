@@ -1,5 +1,5 @@
-import Footer from "./pages/index/Footer";
-import HeroSection from "./pages/index/HeroSection";
+import Footer from "@/pages/index/Footer";
+import HeroSection from "@/pages/index/HeroSection";
 
 function App() {
     return (
