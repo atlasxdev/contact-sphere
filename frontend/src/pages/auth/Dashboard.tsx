@@ -1,7 +1,7 @@
 import { MaxWidthWrapper } from "@/components/max-width-wrapper";
 import noContacts from "../../../public/no_contacts.json";
 import { useLottie } from "lottie-react";
-import { Button } from "@/components/ui/button";
+import { AddContact } from "./components/add-contact";
 
 function Dashboard() {
     const { View, animationContainerRef } = useLottie({
@@ -19,7 +19,7 @@ function Dashboard() {
                 <div ref={animationContainerRef} className="size-64">
                     {View}
                 </div>
-                <Button>Create a new contact</Button>
+                <AddContact />
             </div>
         </MaxWidthWrapper>
     );

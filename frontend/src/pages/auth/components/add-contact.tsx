@@ -13,11 +13,11 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet";
 
-export function SheetDemo() {
+export function AddContact() {
     return (
         <Sheet>
             <SheetTrigger asChild>
-                <Button variant="outline">Open</Button>
+                <Button>Create a new contact</Button>
             </SheetTrigger>
             <SheetContent>
                 <SheetHeader>
