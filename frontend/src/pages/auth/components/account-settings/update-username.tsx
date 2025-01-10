@@ -1,15 +1,30 @@
 import { updateUser } from "@/actions/auth/account-settings/updateUser";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useUser } from "@clerk/clerk-react";
-import { FormEvent, useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { usernameSchema, UsernameSchemaType } from "@/zod-schema";
+import { ErrorMessage } from "@/components/error-message";
+import { tailspin } from "ldrs";
+import { FormButton } from "@/components/form-button";
+
+tailspin.register();
 
 function UpdateUsername() {
     const { user } = useUser();
-    const [username, setUsername] = useState<string>(user!.username!);
+    const {
+        handleSubmit,
+        register,
+        formState: { isValid, errors, isSubmitting },
+    } = useForm<UsernameSchemaType>({
+        defaultValues: {
+            username: user!.username!,
+        },
+        mode: "onChange",
+        resolver: zodResolver(usernameSchema),
+    });
 
-    async function handleSubmit(e: FormEvent) {
-        e.preventDefault();
+    async function submit({ username }: UsernameSchemaType) {
         await updateUser(user!, username);
     }
 
@@ -17,23 +32,24 @@ function UpdateUsername() {
         <div className="space-y-4">
             <p className="text-sm font-semibold">Display Name</p>
             <form
-                onSubmit={handleSubmit}
+                onSubmit={handleSubmit(submit)}
                 className="flex items-center gap-4 w-2/4"
             >
                 <Input
                     required
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    {...register("username")}
                     className=" text-sm -tracking-tighter"
                 />
-                <Button
-                    disabled={
-                        user!.username?.toLowerCase() == username.toLowerCase()
-                    }
-                >
-                    Save
-                </Button>
+                <FormButton
+                    isSubmitting={isSubmitting}
+                    isValid={isValid}
+                    label="Save"
+                    submittingLabel="Saving..."
+                />
             </form>
+            {errors.username && (
+                <ErrorMessage message={errors.username.message} />
+            )}
         </div>
     );
 }

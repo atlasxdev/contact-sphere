@@ -7,6 +7,7 @@ export async function updateUser(user: UserResource, username: string) {
             username,
         });
         await user.reload();
+        toast.dismiss();
         toast.success("Username updated successfully!");
     } catch (error) {
         toast.error((error as ClerkAPIError).message);

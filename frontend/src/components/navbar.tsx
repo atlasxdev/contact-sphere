@@ -17,6 +17,8 @@ import {
 import { ModeToggle } from "./mode-toggle";
 import { Link, NavLink } from "react-router";
 import { cn } from "@/lib/utils";
+import { dark } from "@clerk/themes";
+import { useTheme } from "./theme-provider";
 
 export function Navbar() {
     const { isSignedIn, user, isLoaded } = useUser();
@@ -60,6 +62,8 @@ function PublicNavbar() {
 }
 
 function UserNavbar({ user }: { user: UserResource }) {
+    const { theme } = useTheme();
+
     return (
         <nav className="sticky top-0 z-20 backdrop-blur-md border-b">
             <MaxWidthWrapper>
@@ -135,7 +139,12 @@ function UserNavbar({ user }: { user: UserResource }) {
                         <BellIcon className="size-5" />
                         <ModeToggle variant={"ghost"} />
                         <SignedIn>
-                            <UserButton />
+                            <UserButton
+                                appearance={{
+                                    baseTheme:
+                                        theme == "dark" ? dark : undefined,
+                                }}
+                            />
                         </SignedIn>
                     </div>
                 </div>

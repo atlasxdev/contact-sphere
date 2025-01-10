@@ -12,7 +12,7 @@ function Dashboard() {
     return (
         <MaxWidthWrapper className="max-w-screen-xl py-10 space-y-6">
             <h1 className="font-bold text-2xl -tracking-tighter">Dashboard</h1>
-            <div className="flex flex-col items-center justify-center gap-6 h-screen rounded-lg bg-secondary border">
+            <div className="flex flex-col items-center justify-center gap-6 h-[640px] rounded-lg bg-secondary border">
                 <p className="font-medium -tracking-tighter">
                     No contacts added yet!
                 </p>
