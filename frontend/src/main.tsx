@@ -11,6 +11,7 @@ import NoInternet from "@/components/no-internet.tsx";
 import PublicRoute from "@/routes/PublicRoute.tsx";
 import AccountSettings from "@/pages/auth/AccountSettings.tsx";
 import { Navbar } from "@/components/navbar.tsx";
+import { Toaster } from "sonner";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -21,6 +22,7 @@ if (!PUBLISHABLE_KEY) {
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
         <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+            <Toaster closeButton richColors />
             {navigator.onLine && (
                 <ClerkProvider
                     publishableKey={PUBLISHABLE_KEY}

@@ -1,3 +1,4 @@
+import { axiosInstance } from "@/api/axiosInstance";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,8 +13,27 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet";
+import { useAuth } from "@clerk/clerk-react";
 
 export function AddContact() {
+    const { userId } = useAuth();
+
+    async function send() {
+        const { data } = await axiosInstance.post(
+            "/post",
+            {
+                message: "Hello world!",
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${userId}`,
+                },
+            }
+        );
+
+        console.log(data);
+    }
+
     return (
         <Sheet>
             <SheetTrigger asChild>
@@ -51,7 +71,9 @@ export function AddContact() {
                 </div>
                 <SheetFooter>
                     <SheetClose asChild>
-                        <Button type="submit">Save changes</Button>
+                        <Button onClick={async () => await send()} size={"sm"}>
+                            Save changes
+                        </Button>
                     </SheetClose>
                 </SheetFooter>
             </SheetContent>
