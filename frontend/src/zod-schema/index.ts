@@ -11,17 +11,11 @@ export const addContactSchema = z.object({
         message: "Username must be at least 5 characters",
     }),
     email: z.string().email(),
-    phoneNumber: z.string({ required_error: "Phone number is required" }),
-    address: z.tuple([
-        z.string({
-            required_error: "Country is required",
-        }),
-        z.string(), // State name, optional
-    ]),
-    notes: z
-        .string()
-        .min(5, { message: "Notes must be at least 5 characters" })
-        .nullable(),
+    phoneNumber: z.string().min(1, {
+        message: "Phone number is required",
+    }),
+    address: z.tuple([z.string().optional(), z.string().optional()]),
+    notes: z.string().optional(),
 });
 
 export type UsernameSchemaType = z.infer<typeof usernameSchema>;

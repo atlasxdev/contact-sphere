@@ -1,6 +1,6 @@
 import LocationSelector from "@/components/ui/location-input";
 import { AddContactSchemaType } from "@/zod-schema";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UseFormSetValue } from "react-hook-form";
 
 function SelectLocation({
@@ -10,6 +10,14 @@ function SelectLocation({
 }) {
     const [countryName, setCountryName] = useState<string>("");
     const [stateName, setStateName] = useState<string>("");
+
+    useEffect(() => {
+        return () => {
+            setCountryName("");
+            setStateName("");
+            setValue("address", ["", ""]);
+        };
+    }, [setValue]);
 
     return (
         <LocationSelector

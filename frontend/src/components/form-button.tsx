@@ -14,7 +14,11 @@ export function FormButton({
     submittingLabel,
 }: Props) {
     return (
-        <Button className="gap-2" disabled={!isValid || isSubmitting}>
+        <Button
+            type="submit"
+            className="gap-2"
+            disabled={!isValid || isSubmitting}
+        >
             {isSubmitting ? (
                 <>
                     <l-tailspin
