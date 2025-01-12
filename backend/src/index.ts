@@ -5,8 +5,8 @@ import { serve } from "@hono/node-server";
 import { bearerAuth } from "hono/bearer-auth";
 import { clerkMiddleware } from "@hono/clerk-auth";
 import "dotenv/config";
-import contact from "./routes/contact.js";
-import { verifyToken } from "./utils/verifyToken.js";
+import contact from "@/routes/contact.js";
+import { verifyToken } from "@/utils/verifyToken.js";
 
 const port = process.env.PORT as string;
 
