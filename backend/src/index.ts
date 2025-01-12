@@ -2,7 +2,11 @@ import { prettyJSON } from "hono/pretty-json";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { serve } from "@hono/node-server";
+import { bearerAuth } from "hono/bearer-auth";
+import { clerkMiddleware } from "@hono/clerk-auth";
 import "dotenv/config";
+import contact from "./routes/contact.js";
+import { verifyToken } from "./utils/verifyToken.js";
 
 const port = process.env.PORT as string;
 
@@ -15,12 +19,18 @@ app.use(
         origin: process.env.CLIENT_DEV_SERVER as string,
     })
 );
+app.use("/api/*", clerkMiddleware());
+app.use(
+    "/api/*",
+    bearerAuth({
+        verifyToken: async (token, c) => {
+            const result = await verifyToken(token, c);
+            return result;
+        },
+    })
+);
 
-app.post("/post", async (c) => {
-    const token = c.req.header("Authorization");
-    const { message } = await c.req.json<{ message: string }>();
-    return c.json({ message, token });
-});
+app.route("/api", contact);
 
 app.get("/", (c) => {
     return c.text("Hello world!");

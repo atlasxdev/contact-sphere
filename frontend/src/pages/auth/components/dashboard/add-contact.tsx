@@ -29,25 +29,47 @@ import { FormButton } from "@/components/form-button";
 import { Country } from "react-phone-number-input";
 import { useState } from "react";
 import { PhoneValidateStatus } from "./components/add-contact/phone-validate-status";
+import { useMutation } from "@tanstack/react-query";
+import { useAxiosInstance } from "@/api/axiosInstance";
+import { toast } from "sonner";
 
 export function AddContact() {
-    const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [country, setCountry] = useState<Country>("PH");
+    const axiosInstance = useAxiosInstance();
     const form = useForm<AddContactSchemaType>({
         mode: "onChange",
         resolver: zodResolver(addContactSchema),
     });
+    const { mutate, isPending } = useMutation({
+        mutationFn: async (data: AddContactSchemaType) => {
+            return await axiosInstance.post<{ message: string }>("/contacts", {
+                data,
+            });
+        },
+        onSuccess({ data: { message } }) {
+            console.log(message);
+            setIsOpen(false);
+            form.reset({
+                address: ["", ""],
+                email: "",
+                name: "",
+                notes: "",
+                phoneNumber: "",
+            });
+            toast.success("Contact has been added!", {
+                description: "Check it out on your dashboard.",
+            });
+        },
+        onError() {
+            toast.error("Uh oh! Something went wrong,", {
+                description: "Please try again.",
+            });
+        },
+    });
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [country, setCountry] = useState<Country>("PH");
 
     function submit(data: AddContactSchemaType) {
-        console.log(data);
-        setIsOpen(false);
-        form.reset({
-            address: ["", ""],
-            email: "",
-            name: "",
-            notes: "",
-            phoneNumber: "",
-        });
+        mutate(data);
     }
 
     return (
@@ -188,7 +210,7 @@ export function AddContact() {
 
                             <SheetClose asChild>
                                 <FormButton
-                                    isSubmitting={form.formState.isSubmitting}
+                                    isSubmitting={isPending}
                                     isValid={
                                         form.formState.isValid &&
                                         form.getFieldState("phoneNumber")

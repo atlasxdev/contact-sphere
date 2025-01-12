@@ -694,24 +694,16 @@ body{
   top: 0px;
 }
 
-.top-3{
-  top: 0.75rem;
-}
-
 .top-4{
   top: 1rem;
 }
 
-.top-\[50\%\]{
-  top: 50%;
-}
-
-.top-2\.5{
-  top: 0.625rem;
-}
-
 .top-\[11px\]{
   top: 11px;
+}
+
+.top-\[50\%\]{
+  top: 50%;
 }
 
 .-z-10{
@@ -724,10 +716,6 @@ body{
 
 .z-50{
   z-index: 50;
-}
-
-.col-span-1{
-  grid-column: span 1 / span 1;
 }
 
 .-mx-1{
@@ -1551,10 +1539,6 @@ body{
 
 .text-card-foreground{
   color: hsl(var(--card-foreground));
-}
-
-.text-destructive{
-  color: hsl(var(--destructive));
 }
 
 .text-destructive-foreground{

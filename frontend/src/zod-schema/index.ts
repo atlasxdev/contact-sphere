@@ -15,7 +15,10 @@ export const addContactSchema = z.object({
         message: "Phone number is required",
     }),
     address: z.tuple([z.string().optional(), z.string().optional()]),
-    notes: z.string().optional(),
+    notes: z
+        .string()
+        .max(150, { message: "Notes must be less than 150 characters" })
+        .optional(),
 });
 
 export type UsernameSchemaType = z.infer<typeof usernameSchema>;
