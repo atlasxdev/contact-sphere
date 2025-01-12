@@ -1,11 +1,4 @@
-import {
-    integer,
-    pgTable,
-    serial,
-    text,
-    timestamp,
-    varchar,
-} from "drizzle-orm/pg-core";
+import { pgTable, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
 
 type Address = [
     {
@@ -17,9 +10,9 @@ type Address = [
 export const usersTable = pgTable("users_table", {
     id: serial("id").primaryKey(),
     userId: text("userId").unique(),
-    name: text("name").notNull(),
-    age: integer("age").notNull(),
+    username: text("username").notNull(),
     email: text("email").notNull().unique(),
+    name: text("name"),
     createdAt: timestamp("created_at").notNull().defaultNow(),
     updatedAt: timestamp("updated_at")
         .notNull()
@@ -33,7 +26,7 @@ export const contactsTable = pgTable("contacts_table", {
     phoneNumber: text("phoneNumber").notNull(),
     address: text("address").$type<Address>(),
     notes: varchar("notes", { length: 150 }),
-    userId: integer("user_id")
+    userId: text("user_id")
         .notNull()
         .references(() => usersTable.userId, { onDelete: "cascade" }),
     createdAt: timestamp("created_at").notNull().defaultNow(),
