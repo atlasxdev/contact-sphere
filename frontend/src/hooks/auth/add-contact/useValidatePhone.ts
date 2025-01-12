@@ -28,7 +28,9 @@ export function useValidatePhone(phoneNumber: string, country: Country) {
     }, [phoneNumber, country]);
 
     useEffect(() => {
-        validate();
+        const timeout = setTimeout(() => validate(), 500);
+
+        return () => clearTimeout(timeout);
     }, [validate]);
 
     return { status, loading };

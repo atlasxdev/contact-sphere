@@ -12,12 +12,15 @@ import PublicRoute from "@/routes/PublicRoute.tsx";
 import AccountSettings from "@/pages/auth/AccountSettings.tsx";
 import { Navbar } from "@/components/navbar.tsx";
 import { Toaster } from "sonner";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
 if (!PUBLISHABLE_KEY) {
     throw new Error("Missing Publishable Key");
 }
+
+const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
@@ -30,39 +33,41 @@ createRoot(document.getElementById("root")!).render(
                     signUpForceRedirectUrl={"/dashboard"}
                     signInForceRedirectUrl={"/dashboard"}
                 >
-                    <BrowserRouter>
-                        <Navbar />
-                        <Routes>
-                            <Route
-                                index
-                                element={
-                                    <PublicRoute>
-                                        <App />
-                                    </PublicRoute>
-                                }
-                            />
+                    <QueryClientProvider client={queryClient}>
+                        <BrowserRouter>
+                            <Navbar />
+                            <Routes>
+                                <Route
+                                    index
+                                    element={
+                                        <PublicRoute>
+                                            <App />
+                                        </PublicRoute>
+                                    }
+                                />
 
-                            <Route
-                                path="/dashboard"
-                                element={
-                                    <AuthGate>
-                                        <Dashboard />
-                                    </AuthGate>
-                                }
-                            />
+                                <Route
+                                    path="/dashboard"
+                                    element={
+                                        <AuthGate>
+                                            <Dashboard />
+                                        </AuthGate>
+                                    }
+                                />
 
-                            <Route
-                                path="account-settings"
-                                element={
-                                    <AuthGate>
-                                        <AccountSettings />
-                                    </AuthGate>
-                                }
-                            />
+                                <Route
+                                    path="account-settings"
+                                    element={
+                                        <AuthGate>
+                                            <AccountSettings />
+                                        </AuthGate>
+                                    }
+                                />
 
-                            <Route path="*" element={<NotFound />} />
-                        </Routes>
-                    </BrowserRouter>
+                                <Route path="*" element={<NotFound />} />
+                            </Routes>
+                        </BrowserRouter>
+                    </QueryClientProvider>
                 </ClerkProvider>
             )}
 

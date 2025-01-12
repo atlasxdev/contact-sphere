@@ -75,7 +75,12 @@ export function AddContact() {
                                 name="name"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Name</FormLabel>
+                                        <FormLabel>
+                                            Name{" "}
+                                            <span className="text-red-600">
+                                                *
+                                            </span>
+                                        </FormLabel>
                                         <FormControl>
                                             <Input {...field} />
                                         </FormControl>
@@ -90,7 +95,12 @@ export function AddContact() {
                                 name="email"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Email</FormLabel>
+                                        <FormLabel>
+                                            Email{" "}
+                                            <span className="text-red-600">
+                                                *
+                                            </span>
+                                        </FormLabel>
                                         <FormControl>
                                             <Input {...field} />
                                         </FormControl>
@@ -105,7 +115,12 @@ export function AddContact() {
                                 name="phoneNumber"
                                 render={({ field }) => (
                                     <FormItem className="relative flex flex-col items-start">
-                                        <FormLabel>Phone number</FormLabel>
+                                        <FormLabel>
+                                            Phone number{" "}
+                                            <span className="text-red-600">
+                                                *
+                                            </span>
+                                        </FormLabel>
                                         <FormControl className="w-full">
                                             <PhoneInput
                                                 {...field}
@@ -118,7 +133,7 @@ export function AddContact() {
                                         </FormControl>
                                         {form.getFieldState("phoneNumber")
                                             .isTouched && (
-                                            <div className="w-max absolute -right-1 top-3">
+                                            <div className="w-max absolute -right-1 top-[11px]">
                                                 <PhoneValidateStatus
                                                     setError={form.setError}
                                                     country={country}
@@ -179,7 +194,7 @@ export function AddContact() {
                                         form.getFieldState("phoneNumber")
                                             .isTouched
                                     }
-                                    label="Save changes"
+                                    label="Save"
                                     submittingLabel="Saving..."
                                 />
                             </SheetClose>

@@ -4,19 +4,23 @@ import { useUser } from "@clerk/clerk-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { usernameSchema, UsernameSchemaType } from "@/zod-schema";
-import { ErrorMessage } from "@/components/error-message";
 import { tailspin } from "ldrs";
 import { FormButton } from "@/components/form-button";
+import {
+    Form,
+    FormControl,
+    FormDescription,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "@/components/ui/form";
 
 tailspin.register();
 
 function UpdateUsername() {
     const { user } = useUser();
-    const {
-        handleSubmit,
-        register,
-        formState: { isValid, errors, isSubmitting },
-    } = useForm<UsernameSchemaType>({
+    const form = useForm<UsernameSchemaType>({
         defaultValues: {
             username: user!.username!,
         },
@@ -29,27 +33,44 @@ function UpdateUsername() {
     }
 
     return (
-        <div className="space-y-4">
+        <div className="w-full space-y-4">
             <p className="text-sm font-semibold">Display Name</p>
-            <form
-                onSubmit={handleSubmit(submit)}
-                className="flex items-center gap-4 w-2/4"
-            >
-                <Input
-                    required
-                    {...register("username")}
-                    className=" text-sm -tracking-tighter"
-                />
-                <FormButton
-                    isSubmitting={isSubmitting}
-                    isValid={isValid}
-                    label="Save"
-                    submittingLabel="Saving..."
-                />
-            </form>
-            {errors.username && (
-                <ErrorMessage message={errors.username.message} />
-            )}
+            <Form {...form}>
+                <form
+                    className="space-y-4"
+                    onSubmit={form.handleSubmit(submit)}
+                >
+                    <FormField
+                        control={form.control}
+                        name="username"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>
+                                    Username{" "}
+                                    <span className="text-red-600">*</span>
+                                </FormLabel>
+                                <FormControl>
+                                    <Input
+                                        {...field}
+                                        className="w-2/4 text-sm -tracking-tighter"
+                                    />
+                                </FormControl>
+                                <FormDescription>
+                                    This is your public display name.
+                                </FormDescription>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
+                    <FormButton
+                        isSubmitting={form.formState.isSubmitting}
+                        isValid={form.formState.isValid}
+                        label="Save"
+                        submittingLabel="Saving..."
+                    />
+                </form>
+            </Form>
         </div>
     );
 }
