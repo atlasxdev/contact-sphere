@@ -7,10 +7,13 @@
   "dependencies": {
     "@hono/clerk-auth": "^2.0.0",
     "@hono/node-server": "^1.13.7",
+    "@hono/zod-validator": "^0.4.2",
     "@neondatabase/serverless": "^0.10.4",
     "dotenv": "16.4.7",
     "drizzle-orm": "^0.38.3",
-    "hono": "^4.6.16"
+    "hono": "^4.6.16",
+    "http-status-codes": "^2.3.0",
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@types/node": "^20.11.17",

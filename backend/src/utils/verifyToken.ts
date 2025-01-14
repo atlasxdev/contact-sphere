@@ -5,8 +5,7 @@ export async function verifyToken(token: string, c: Context) {
     try {
         const clerkClient = c.get("clerk");
         const user = await clerkClient.users.getUser(token);
-        console.log(user);
-        return !!user;
+        return Boolean(user);
     } catch (e) {
         const { longMessage } = e as ClerkAPIError;
         console.error(longMessage);

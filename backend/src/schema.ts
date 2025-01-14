@@ -1,11 +1,6 @@
 import { pgTable, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
 
-type Address = [
-    {
-        country: string;
-        state?: number;
-    }
-];
+type Address = [string?, string?];
 
 export const usersTable = pgTable("users_table", {
     id: serial("id").primaryKey(),

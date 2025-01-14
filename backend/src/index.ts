@@ -7,13 +7,14 @@ import { clerkMiddleware } from "@hono/clerk-auth";
 import "dotenv/config";
 import contact from "@/routes/contact.js";
 import { verifyToken } from "@/utils/verifyToken.js";
+import { errorMiddlewareHandler } from "./middlewares/error-handler.js";
 
 const port = process.env.PORT as string;
 
 const app = new Hono();
 
+app.onError(errorMiddlewareHandler);
 app.use(prettyJSON());
-
 app.use(
     cors({
         origin: process.env.CLIENT_DEV_SERVER as string,
@@ -24,8 +25,8 @@ app.use(
     "/api/*",
     bearerAuth({
         verifyToken: async (token, c) => {
-            const result = await verifyToken(token, c);
-            return result;
+            const isAuthorized = await verifyToken(token, c);
+            return isAuthorized;
         },
     })
 );

@@ -1,1 +1,10 @@
-GET http://localhost:3000
+POST http://localhost:3000/api/contacts
+Authorization: Bearer user_2rWmfpe8SizrhnqqRrNbxAo6DUk
+
+{
+    "name": "ace",
+    "email": "ace@gmail.com",
+    "phoneNumber": "",
+    "address": ["", ""],
+    "userId": "1"
+}
