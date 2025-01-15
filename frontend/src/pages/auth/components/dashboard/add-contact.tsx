@@ -32,17 +32,20 @@ import { PhoneValidateStatus } from "./components/add-contact/phone-validate-sta
 import { useMutation } from "@tanstack/react-query";
 import { useAxiosInstance } from "@/api/axiosInstance";
 import { toast } from "sonner";
+import { useUser } from "@clerk/clerk-react";
+import { AxiosError } from "axios";
 
 export function AddContact() {
+    const { user } = useUser();
     const axiosInstance = useAxiosInstance();
     const form = useForm<AddContactSchemaType>({
         mode: "onChange",
         resolver: zodResolver(addContactSchema),
     });
     const { mutate, isPending } = useMutation({
-        mutationFn: async (data: AddContactSchemaType) => {
+        mutationFn: async (data: { userId: string } & AddContactSchemaType) => {
             return await axiosInstance.post<{ message: string }>("/contacts", {
-                data,
+                ...data,
             });
         },
         onSuccess({ data: { message } }) {
@@ -59,8 +62,10 @@ export function AddContact() {
                 description: "Check it out on your dashboard.",
             });
         },
-        onError() {
-            toast.error("Uh oh! Something went wrong,", {
+        onError(err: AxiosError) {
+            console.log(err);
+            const { message } = err.response!.data as { message: string };
+            toast.error("Uh oh! " + message, {
                 description: "Please try again.",
             });
         },
@@ -70,7 +75,7 @@ export function AddContact() {
     const [country, setCountry] = useState<Country>("PH");
 
     function submit(data: AddContactSchemaType) {
-        mutate(data);
+        mutate({ ...data, userId: user!.id });
     }
 
     return (
