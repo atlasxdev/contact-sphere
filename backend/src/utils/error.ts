@@ -17,9 +17,9 @@ type ErrorName =
 export class BadRequestError extends Error {
     status: number;
 
-    constructor(message = "Bad Request") {
+    constructor(message: string) {
         super(message);
-        this.name = this.name;
+        this.name = "BadRequestError";
         this.status = StatusCodes.BAD_REQUEST;
     }
 }
@@ -27,9 +27,9 @@ export class BadRequestError extends Error {
 export class UnauthorizedError extends Error {
     status: number;
 
-    constructor(message = "Unauthorized") {
+    constructor(message: string) {
         super(message);
-        this.name = this.name;
+        this.name = "UnauthorizedError";
         this.status = StatusCodes.UNAUTHORIZED;
     }
 }
@@ -37,9 +37,9 @@ export class UnauthorizedError extends Error {
 export class ForbiddenError extends Error {
     status: number;
 
-    constructor(message = "Forbidden") {
+    constructor(message: string) {
         super(message);
-        this.name = this.name;
+        this.name = "ForbiddenError";
         this.status = StatusCodes.FORBIDDEN;
     }
 }
@@ -47,9 +47,9 @@ export class ForbiddenError extends Error {
 export class NotFoundError extends Error {
     status: number;
 
-    constructor(message = "Not Found") {
+    constructor(message: string) {
         super(message);
-        this.name = this.name;
+        this.name = "NotFoundError";
         this.status = StatusCodes.NOT_FOUND;
     }
 }
@@ -57,9 +57,9 @@ export class NotFoundError extends Error {
 export class ConflictError extends Error {
     status: number;
 
-    constructor(message = "Conflict") {
+    constructor(message: string) {
         super(message);
-        this.name = this.name;
+        this.name = "ConflictError";
         this.status = StatusCodes.CONFLICT;
     }
 }
@@ -67,9 +67,9 @@ export class ConflictError extends Error {
 export class UnprocessableEntityError extends Error {
     status: number;
 
-    constructor(message = "Unprocessable Entity") {
+    constructor(message: string) {
         super(message);
-        this.name = this.name;
+        this.name = "UnprocessableEntityError";
         this.status = StatusCodes.UNPROCESSABLE_ENTITY;
     }
 }
@@ -77,9 +77,9 @@ export class UnprocessableEntityError extends Error {
 export class TooManyRequestsError extends Error {
     status: number;
 
-    constructor(message = "Too Many Requests") {
+    constructor(message: string) {
         super(message);
-        this.name = this.name;
+        this.name = "TooManyRequestsError";
         this.status = StatusCodes.TOO_MANY_REQUESTS;
     }
 }
@@ -87,9 +87,9 @@ export class TooManyRequestsError extends Error {
 export class InternalServerError extends Error {
     status: number;
 
-    constructor(message = "Internal Server Error") {
+    constructor(message: string) {
         super(message);
-        this.name = this.name;
+        this.name = "InternalServerError";
         this.status = StatusCodes.INTERNAL_SERVER_ERROR;
     }
 }
@@ -97,9 +97,9 @@ export class InternalServerError extends Error {
 export class BadGatewayError extends Error {
     status: number;
 
-    constructor(message = "Bad Gateway") {
+    constructor(message: string) {
         super(message);
-        this.name = this.name;
+        this.name = "BadGatewayError";
         this.status = StatusCodes.BAD_GATEWAY;
     }
 }
@@ -107,9 +107,9 @@ export class BadGatewayError extends Error {
 export class ServiceUnavailableError extends Error {
     status: number;
 
-    constructor(message = "Service Unavailable") {
+    constructor(message: string) {
         super(message);
-        this.name = this.name;
+        this.name = "ServiceUnavailableError";
         this.status = StatusCodes.SERVICE_UNAVAILABLE;
     }
 }
@@ -117,9 +117,9 @@ export class ServiceUnavailableError extends Error {
 export class GatewayTimeoutError extends Error {
     status: number;
 
-    constructor(message = "Gateway Timeout") {
+    constructor(message: string) {
         super(message);
-        this.name = this.name;
+        this.name = "GatewayTimeoutError";
         this.status = StatusCodes.GATEWAY_TIMEOUT;
     }
 }
@@ -133,9 +133,8 @@ export class ZodErrorResponse extends Error {
             path: err.path.join("."),
             message: err.message,
         }));
-
         super("Validation Error");
-        this.name = this.name;
+        this.name = error.name;
         this.status = StatusCodes.UNPROCESSABLE_ENTITY;
         this.errors = formattedErrors;
     }
