@@ -1,5 +1,5 @@
 {
-  "id": "5dca64a0-66da-42bd-93f7-4e754295651b",
+  "id": "7d5729dc-b997-43ef-ab8d-39038fd4c62d",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -29,6 +29,13 @@
         "phoneNumber": {
           "name": "phoneNumber",
           "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "contactType": {
+          "name": "contactType",
+          "type": "contactType",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
         },
@@ -158,7 +165,19 @@
       "isRLSEnabled": false
     }
   },
-  "enums": {},
+  "enums": {
+    "public.contactType": {
+      "name": "contactType",
+      "schema": "public",
+      "values": [
+        "Personal",
+        "Professional",
+        "Organization",
+        "Partner",
+        "Other"
+      ]
+    }
+  },
   "schemas": {},
   "sequences": {},
   "roles": {},

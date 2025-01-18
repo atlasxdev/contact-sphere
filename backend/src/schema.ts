@@ -1,6 +1,21 @@
-import { pgTable, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import {
+    boolean,
+    pgEnum,
+    pgTable,
+    serial,
+    text,
+    timestamp,
+    varchar,
+} from "drizzle-orm/pg-core";
 
 type Address = [string?, string?];
+export const contactTypeEnum = pgEnum("contactType", [
+    "Personal",
+    "Professional",
+    "Organization",
+    "Partner",
+    "Other",
+]);
 
 export const usersTable = pgTable("users_table", {
     id: serial("id").primaryKey(),
@@ -19,8 +34,10 @@ export const contactsTable = pgTable("contacts_table", {
     name: text("name").notNull(),
     email: text("email").notNull(),
     phoneNumber: text("phoneNumber").notNull(),
+    contactType: contactTypeEnum().notNull(),
     address: text("address").$type<Address>(),
     notes: varchar("notes", { length: 150 }),
+    isFavorite: boolean("isFavorite").notNull().default(false),
     userId: text("user_id")
         .notNull()
         .references(() => usersTable.userId, { onDelete: "cascade" }),

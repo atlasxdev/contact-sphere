@@ -1,8 +1,10 @@
+CREATE TYPE "public"."contactType" AS ENUM('Personal', 'Professional', 'Organization', 'Partner', 'Other');--> statement-breakpoint
 CREATE TABLE "contacts_table" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"name" text NOT NULL,
 	"email" text NOT NULL,
 	"phoneNumber" text NOT NULL,
+	"contactType" "contactType" NOT NULL,
 	"address" text,
 	"notes" varchar(150),
 	"user_id" text NOT NULL,
