@@ -2,7 +2,7 @@ import { MaxWidthWrapper } from "@/components/max-width-wrapper";
 import { BackgroundLines } from "@/components/ui/background-lines";
 import { Button } from "@/components/ui/button";
 import { useLottie } from "lottie-react";
-import lottieMation from "../../../public/lottiemation.json";
+import lottieMation from "@/assets/lottiemation.json";
 import {
     Card,
     CardContent,

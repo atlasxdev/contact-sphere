@@ -9,7 +9,6 @@ type Props = {
 
 export function FormButton({
     isSubmitting,
-
     isValid,
     label,
     submittingLabel,

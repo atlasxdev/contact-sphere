@@ -38,7 +38,7 @@ export function ModeToggle({
             >
                 <DropdownMenuItem
                     className={cn(
-                        "flex justify-between items-center text-sm rounded-md font-light",
+                        "flex justify-between items-center text-sm rounded-md",
                         {
                             "bg-accent": theme == "light",
                         }
@@ -50,7 +50,7 @@ export function ModeToggle({
                 </DropdownMenuItem>
                 <DropdownMenuItem
                     className={cn(
-                        "flex justify-between items-center text-sm rounded-md font-light",
+                        "flex justify-between items-center text-sm rounded-md",
                         {
                             "bg-accent": theme == "dark",
                         }
@@ -62,7 +62,7 @@ export function ModeToggle({
                 </DropdownMenuItem>
                 <DropdownMenuItem
                     className={cn(
-                        "flex justify-between items-center text-sm rounded-md font-light",
+                        "flex justify-between items-center text-sm rounded-md",
                         {
                             "bg-accent": theme == "system",
                         }

@@ -29,14 +29,23 @@ import { FormButton } from "@/components/form-button";
 import { Country } from "react-phone-number-input";
 import { useState } from "react";
 import { PhoneValidateStatus } from "./components/add-contact/phone-validate-status";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAxiosInstance } from "@/api/axiosInstance";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+
 import { toast } from "sonner";
 import { useUser } from "@clerk/clerk-react";
 import { AxiosError } from "axios";
 
 export function AddContact() {
     const { user } = useUser();
+    const queryClient = useQueryClient();
     const axiosInstance = useAxiosInstance();
     const form = useForm<AddContactSchemaType>({
         mode: "onChange",
@@ -69,6 +78,11 @@ export function AddContact() {
                 description: "Please try again.",
             });
         },
+        onSettled() {
+            queryClient.invalidateQueries({
+                queryKey: ["contacts"],
+            });
+        },
     });
 
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -81,7 +95,7 @@ export function AddContact() {
     return (
         <Sheet open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
             <SheetTrigger asChild>
-                <Button>Create a new contact</Button>
+                <Button>New contact</Button>
             </SheetTrigger>
             <SheetContent className="space-y-1 pr-2">
                 <SheetHeader className="pr-4">
@@ -133,6 +147,48 @@ export function AddContact() {
                                             <Input {...field} />
                                         </FormControl>
 
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name="contactType"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Contact type</FormLabel>
+                                        <Select
+                                            onValueChange={field.onChange}
+                                            defaultValue={field.value}
+                                        >
+                                            <FormControl>
+                                                <SelectTrigger>
+                                                    <SelectValue placeholder="Select a contact type to display" />
+                                                </SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent>
+                                                <SelectItem value="Personal">
+                                                    Personal
+                                                </SelectItem>
+                                                <SelectItem value="Professional">
+                                                    Professional
+                                                </SelectItem>
+                                                <SelectItem value="Organization">
+                                                    Organization
+                                                </SelectItem>
+                                                <SelectItem value="Partner">
+                                                    Partner
+                                                </SelectItem>
+                                                <SelectItem value="Other">
+                                                    Other
+                                                </SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                        <FormDescription>
+                                            You can manage contact types in your
+                                            contacts settings.
+                                        </FormDescription>
                                         <FormMessage />
                                     </FormItem>
                                 )}

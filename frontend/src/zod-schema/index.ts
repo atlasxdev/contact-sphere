@@ -6,6 +6,14 @@ export const usernameSchema = z.object({
     }),
 });
 
+const CONTACT_TYPE = [
+    "Personal",
+    "Professional",
+    "Organization",
+    "Partner",
+    "Other",
+] as const;
+
 export const addContactSchema = z.object({
     name: z.string().min(5, {
         message: "Username must be at least 5 characters",
@@ -14,6 +22,7 @@ export const addContactSchema = z.object({
     phoneNumber: z.string().min(1, {
         message: "Phone number is required",
     }),
+    contactType: z.enum(CONTACT_TYPE, {}),
     address: z.tuple([z.string().optional(), z.string().optional()]),
     notes: z
         .string()

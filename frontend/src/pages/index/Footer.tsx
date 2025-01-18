@@ -24,22 +24,20 @@ function Footer() {
                     </div>
                     <div className="flex flex-col gap-4">
                         <p className="text-sm font-medium">Product</p>
-                        <p className="font-light text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground">
                             Changelog
                         </p>
-                        <p className="font-light text-sm text-muted-foreground">
-                            Roadmap
-                        </p>
-                        <p className="font-light text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground">Roadmap</p>
+                        <p className="text-sm text-muted-foreground">
                             Contact us
                         </p>
                     </div>
                     <div className="flex flex-col gap-4">
                         <p className="text-sm font-medium">Legal</p>
-                        <p className="font-light text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground">
                             Terms of services
                         </p>
-                        <p className="font-light text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground">
                             Privacy policy
                         </p>
                     </div>

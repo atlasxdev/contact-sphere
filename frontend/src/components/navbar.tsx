@@ -80,7 +80,7 @@ function UserNavbar({ user }: { user: UserResource }) {
                                     src={user.imageUrl}
                                     className="rounded-full size-7"
                                 />
-                                <p className="text-sm font-light -tracking-tighter">
+                                <p className="text-sm -tracking-tighter">
                                     {" "}
                                     {user.username}
                                 </p>
@@ -106,7 +106,7 @@ function UserNavbar({ user }: { user: UserResource }) {
                                 }
                             >
                                 <LayoutDashboardIcon className="size-5" />
-                                <p className="font-light text-sm -tracking-tighter">
+                                <p className="text-sm -tracking-tighter">
                                     Dashboard
                                 </p>
                             </NavLink>
@@ -129,14 +129,16 @@ function UserNavbar({ user }: { user: UserResource }) {
                                 }
                             >
                                 <SettingsIcon className="size-5" />
-                                <p className="font-light text-sm -tracking-tighter">
+                                <p className="text-sm -tracking-tighter">
                                     Account Settings
                                 </p>
                             </NavLink>
                         </div>
                     </div>
                     <div className="flex items-center justify-center gap-4">
-                        <BellIcon className="size-5" />
+                        <Button variant={"ghost"} size="icon">
+                            <BellIcon className="size-5" />
+                        </Button>
                         <ModeToggle variant={"ghost"} />
                         <SignedIn>
                             <UserButton
