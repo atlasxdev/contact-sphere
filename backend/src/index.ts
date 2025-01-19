@@ -9,8 +9,13 @@ import contact from "@/routes/contact.js";
 import { verifyToken } from "@/utils/verifyToken.js";
 import { errorMiddlewareHandler } from "./middlewares/error-handler.js";
 import { logger } from "hono/logger";
+import { UnauthorizedError } from "./utils/error.js";
+import { StatusCodes } from "http-status-codes";
+import { db } from "./services/db.js";
+import { usersTable } from "./schema.js";
 
 const port = process.env.PORT as string;
+const clerkSignature = process.env.CLERK_SIGNATURE as string;
 const clerkSecretKey = process.env.CLERK_SECRET_KEY as string;
 const clerkPublishableKey = process.env.CLERK_PUBLISHABLE_KEY as string;
 
@@ -45,6 +50,23 @@ app.route("/api", contact);
 
 app.get("/", (c) => {
     return c.text("Hello world!");
+});
+
+app.post("/webhooks/user-signup", async (c) => {
+    const signature = c.req.header("clerk-signature");
+    if (signature == null || signature != clerkSignature) {
+        throw new UnauthorizedError("Invalid signature!");
+    }
+    const {
+        data: { id, username, email_addresses },
+    } = await c.req.json();
+    await db.insert(usersTable).values({
+        userId: id,
+        username,
+        email: email_addresses[0].email_address,
+    });
+    c.status(StatusCodes.CREATED);
+    return c.json({ message: "User has been created." });
 });
 
 console.log(`Server is running on http://localhost:${port}`);
