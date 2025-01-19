@@ -10,6 +10,7 @@ import NoContacts from "./components/contacts/no-contacts";
 import { AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 
 type ContactCategories =
     | "all"
@@ -20,9 +21,27 @@ type ContactCategories =
     | "other";
 
 function Contacts() {
-    const axiosInstance = useAxiosInstance();
+    console.log("Hello");
+
+    return (
+        <div className="space-y-6">
+            <div className="flex gap-4">
+                <div className="relative flex items-center w-full">
+                    <SearchIcon className="absolute left-3.5 size-5" />
+                    <Input className="pl-11" placeholder="Search contacts" />
+                </div>
+                <AddContact label="New contact" />
+            </div>
+            <Content />
+        </div>
+    );
+}
+
+function Content() {
     const queryClient = useQueryClient();
+    const axiosInstance = useAxiosInstance();
     const [category, setCategory] = useState<ContactCategories>("all");
+
     const { data, isLoading } = useInfiniteQuery({
         queryKey: ["contacts", category],
         queryFn: async ({ pageParam }) => {
@@ -40,84 +59,105 @@ function Contacts() {
         queryClient.invalidateQueries({
             queryKey: ["contacts", category],
         });
+
+        return () => {
+            queryClient.cancelQueries({
+                queryKey: ["contacts", category],
+            });
+        };
     }, [category, queryClient]);
 
     if (isLoading) {
         return <Loader />;
     }
 
-    if (!data?.pages.flatMap((page) => page.data.contacts).length) {
-        return <NoContacts />;
-    }
-
     return (
-        <div className="space-y-6">
-            <div className="flex gap-4">
-                <div className="relative flex items-center w-full">
-                    <SearchIcon className="absolute left-3.5 size-5" />
-                    <Input className="pl-11" placeholder="Search contacts" />
-                </div>
-                <AddContact />
-            </div>
+        <>
             <div className="flex items-center gap-4">
                 <Button
                     onClick={() => setCategory("all")}
-                    variant={"secondary"}
+                    variant={category == "all" ? "secondary" : "outline"}
+                    className={cn(
+                        category == "all" ? "opacity-100" : "opacity-60"
+                    )}
                     size={"sm"}
                 >
                     All
                 </Button>
                 <Button
                     onClick={() => setCategory("personal")}
-                    className="opacity-70"
-                    variant={"outline"}
+                    className={cn(
+                        category == "personal" ? "opacity-100" : "opacity-60"
+                    )}
+                    variant={category == "personal" ? "secondary" : "outline"}
                     size={"sm"}
                 >
                     Personal
                 </Button>
                 <Button
                     onClick={() => setCategory("professional")}
-                    className="opacity-70"
-                    variant={"outline"}
+                    className={cn(
+                        category == "professional"
+                            ? "opacity-100"
+                            : "opacity-60"
+                    )}
+                    variant={
+                        category == "professional" ? "secondary" : "outline"
+                    }
                     size={"sm"}
                 >
                     Professional
                 </Button>
                 <Button
                     onClick={() => setCategory("organization")}
-                    className="opacity-70"
-                    variant={"outline"}
+                    className={cn(
+                        category == "organization"
+                            ? "opacity-100"
+                            : "opacity-60"
+                    )}
+                    variant={
+                        category == "organization" ? "secondary" : "outline"
+                    }
                     size={"sm"}
                 >
                     Organization
                 </Button>
                 <Button
                     onClick={() => setCategory("partner")}
-                    className="opacity-70"
-                    variant={"outline"}
+                    className={cn(
+                        category == "partner" ? "opacity-100" : "opacity-60"
+                    )}
+                    variant={category == "partner" ? "secondary" : "outline"}
                     size={"sm"}
                 >
                     Partner
                 </Button>
                 <Button
                     onClick={() => setCategory("other")}
-                    className="opacity-70"
-                    variant={"outline"}
+                    className={cn(
+                        category == "other" ? "opacity-100" : "opacity-60"
+                    )}
+                    variant={category == "other" ? "secondary" : "outline"}
                     size={"sm"}
                 >
                     Other
                 </Button>
             </div>
-            <div className="grid grid-cols-3 gap-4">
-                <AnimatePresence>
-                    {data.pages.flatMap((page) =>
-                        page.data.contacts.map((props) => (
-                            <Contact key={props.id} {...props} />
-                        ))
-                    )}
-                </AnimatePresence>
-            </div>
-        </div>
+            {!data?.pages.flatMap((page) => page.data.contacts).length && (
+                <NoContacts />
+            )}
+            {!!data?.pages.flatMap((page) => page.data.contacts).length && (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <AnimatePresence>
+                        {data.pages.flatMap((page) =>
+                            page.data.contacts.map((props) => (
+                                <Contact key={props.id} {...props} />
+                            ))
+                        )}
+                    </AnimatePresence>
+                </div>
+            )}
+        </>
     );
 }
 

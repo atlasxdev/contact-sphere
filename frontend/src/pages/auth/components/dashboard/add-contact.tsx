@@ -43,7 +43,7 @@ import { toast } from "sonner";
 import { useUser } from "@clerk/clerk-react";
 import { AxiosError } from "axios";
 
-export function AddContact() {
+export function AddContact({ label }: { label: string }) {
     const { user } = useUser();
     const queryClient = useQueryClient();
     const axiosInstance = useAxiosInstance();
@@ -95,7 +95,7 @@ export function AddContact() {
     return (
         <Sheet open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
             <SheetTrigger asChild>
-                <Button>New contact</Button>
+                <Button>{label}</Button>
             </SheetTrigger>
             <SheetContent className="space-y-1 pr-2">
                 <SheetHeader className="pr-4">

@@ -16,7 +16,7 @@ function NoContacts() {
             <div ref={animationContainerRef} className="size-64">
                 {View}
             </div>
-            <AddContact />
+            <AddContact label="Add new contact" />
         </div>
     );
 }
