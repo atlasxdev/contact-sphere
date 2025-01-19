@@ -95,7 +95,9 @@ function ConfirmDeleteContact() {
                         Cancel
                     </AlertDialogCancel>
                     <Button
-                        disabled={isPending}
+                        disabled={
+                            isPending || textConfirmation != "Delete contact"
+                        }
                         onClick={() => removeContact()}
                         className="w-full"
                         size={"lg"}
